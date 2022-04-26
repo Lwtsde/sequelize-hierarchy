@@ -1,5 +1,6 @@
 'use strict';
 
+const bluebird = require('bluebird');
 const fs = require('fs'),
 	path = require('path'),
 	_ = require('lodash'),
@@ -12,13 +13,14 @@ const fs = require('fs'),
 
 require('../lib/index')(Sequelize);
 
+
 chai.use(chaiAsPromised);
 
 // Make sure errors get thrown when testing
-Sequelize.Promise.onPossiblyUnhandledRejection((e) => {
+bluebird.Promise.onPossiblyUnhandledRejection((e) => {
 	throw e;
 });
-Sequelize.Promise.longStackTraces();
+bluebird.Promise.longStackTraces();
 
 const Support = {
 	Sequelize,
@@ -47,11 +49,11 @@ const Support = {
 		if (dialect === 'sqlite') {
 			const p = path.join(__dirname, 'tmp', 'db.sqlite');
 
-			return new Sequelize.Promise(((resolve) => {
+			return new bluebird.Promise(((resolve) => {
 				// We cannot promisify exists, since exists does not follow node callback convention -
 				// first argument is a boolean, not an error / null
 				if (fs.existsSync(p)) {
-					resolve(Sequelize.Promise.promisify(fs.unlink)(p));
+					resolve(bluebird.Promise.promisify(fs.unlink)(p));
 				} else {
 					resolve();
 				}
@@ -69,7 +71,7 @@ const Support = {
 		if (callback) {
 			callback(sequelize);
 		} else {
-			return Sequelize.Promise.resolve(sequelize);
+			return bluebird.Promise.resolve(sequelize);
 		}
 	},
 

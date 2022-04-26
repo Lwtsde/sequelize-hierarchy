@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-	username: process.env.SEQ_USER || 'sequelize_test',
+	username: process.env.SEQ_USER || 'postgres',
 	password: process.env.SEQ_PW || null,
 	database: process.env.SEQ_DB || 'sequelize_test',
 	host: process.env.SEQ_HOST || '127.0.0.1',
@@ -44,7 +44,7 @@ module.exports = {
 
 	postgres: {
 		database: process.env.SEQ_PG_DB || process.env.SEQ_DB || 'sequelize_test',
-		username: process.env.SEQ_PG_USER || process.env.SEQ_USER || 'sequelize_test',
+		username: process.env.SEQ_PG_USER || process.env.SEQ_USER || 'postgres',
 		password: process.env.SEQ_PG_PW || process.env.SEQ_PW || null,
 		host: process.env.SEQ_PG_HOST || process.env.SEQ_HOST || '127.0.0.1',
 		port: process.env.SEQ_PG_PORT || process.env.SEQ_PORT || 5432,
